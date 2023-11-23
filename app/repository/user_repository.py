@@ -1,0 +1,23 @@
+import json
+
+from supabase import create_client
+
+with open("app/services/config.json", "r") as f:
+    appsettings = json.load(f)
+
+supabase = create_client(appsettings["SUPABASE_URL"], appsettings["SUPABASE_KEY"])
+
+class UserRepository:
+    def __int__(self):
+        self.collection = supabase.table('user')
+
+    def get_all_users(self):
+        users = self.collection.select('*').execute().data
+        return users
+
+    def new_user(self, user):
+        self.collection.insert(user).execute()
+
+    def get_user_by_id(self, id):
+        user = self.collection.select('*').eq('id', id).execute().data
+        return user
