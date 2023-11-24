@@ -21,3 +21,7 @@ class UserRepository:
     def get_user_by_id(self, id):
         user = self.collection.select('*').eq('id', id).execute().data
         return user
+
+    def getUserByLogin(self, user):
+        user = self.collection.select('*').eq('usuario', user.usuario).eq('senha', user.senha).execute().data
+        return user
