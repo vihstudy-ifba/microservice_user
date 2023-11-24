@@ -6,12 +6,20 @@ from app.repository.user_repository import UserRepository
 userRepository = UserRepository()
 
 
-@app.route("/")
-def hello():
-    return "Hello, World!"
+@app.route("/acesso", methods=['POST'])
+def login():
+
+    user = request.get_json()
+
+    usuario = userRepository.getUserByLogin(user)
+
+    if usuario is None:
+        return "Usuario não encontrado", 404
+
+    return True, 200
 
 
-@app.route("/aa", methods=['POST'])
+@app.route("/novousuario", methods=['POST'])
 def new_user():
     try:
         user = request.get_json()
@@ -21,7 +29,7 @@ def new_user():
         return "Ops, ocorreu um erro!", 500
 
 
-@app.route("/a", methods=['GET'])
+@app.route("/usuarios", methods=['GET'])
 def get_all_users():
     try:
         users = userRepository.get_all_users()
