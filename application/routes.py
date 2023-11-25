@@ -1,7 +1,9 @@
 from flask import request, jsonify
-from app import app
+from postgrest import APIError
 
-from app.repository.user_repository import UserRepository
+from application import app
+
+from application.repository.user_repository import UserRepository
 
 userRepository = UserRepository()
 
@@ -34,5 +36,5 @@ def get_all_users():
     try:
         users = userRepository.get_all_users()
         return jsonify(users), 200
-    except:
+    except APIError as e:
         return "Ops, ocorreu um erro!", 500
