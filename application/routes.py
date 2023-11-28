@@ -25,9 +25,11 @@ def login():
 def new_user():
     try:
         user = request.get_json()
+        user.pop('id')
         userRepository.new_user(user)
         return "Ok", 200
-    except:
+    except APIError as e:
+        print(e.message)
         return "Ops, ocorreu um erro!", 500
 
 
