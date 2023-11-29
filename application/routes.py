@@ -7,6 +7,9 @@ from application.repository.user_repository import UserRepository
 
 userRepository = UserRepository()
 
+@app.route("/", methods=['GET'])
+def hello():
+    return "Hello, it's me!"
 
 @app.route("/acesso", methods=['POST'])
 def login():
