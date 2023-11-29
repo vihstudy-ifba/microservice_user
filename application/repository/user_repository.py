@@ -1,9 +1,11 @@
-import os
+import json
 
 from supabase import create_client
 
-supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+with open("application/services/config.json", "r") as f:
+    appsettings = json.load(f)
 
+supabase = create_client(appsettings["SUPABASE_URL"], appsettings["SUPABASE_KEY"])
 class UserRepository:
     def __init__(self):
         self.collection = supabase.table('usuario')
