@@ -2,7 +2,6 @@ from flask import request, jsonify
 from postgrest import APIError
 
 from application import app
-
 from application.repository.user_repository import UserRepository
 
 userRepository = UserRepository()
